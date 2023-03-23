@@ -32,11 +32,30 @@ body {
 .slider-items {
     width: 80%;
     height: 60vh;
+    position: relative;
 }
+
+.game {
+    position: absolute;
+    color: white;
+    right: 1rem;
+    bottom: 2rem;
+    text-align: right;
+    display: none;
+    animation: fade-in 2s;
+}
+
 
 .item {
     height: 100%;
     display: none;
+    animation: fade-in 1.5s;
+}
+
+/* Fade animation */
+@keyframes fade-in {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
 }
 
 .slider img {
@@ -46,7 +65,8 @@ body {
 }
 
 /* active item */
-.active-item {
+.active-item,
+.active-game {
     display: block;
 }
 

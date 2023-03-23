@@ -41,15 +41,9 @@ console.log(sliderItems);
 const thumbnailItems = document.querySelector(".images-list");
 // Ciclo for per inserire dinamicamente gli item (immagini)
 for (let i = 0; i < images.length; i++ ) {
-    sliderItems.innerHTML += `
-    <div class="item">
-        <img src="${images[i]}" alt="Game">
-    </div>`  
-    thumbnailItems.innerHTML += `
-    <div class="thumbnail">
-        <img src="${images[i]}" alt="Game">
-    </div>`                           
+    createImages(images[i]);                     
 }
+sliderItems.innerHTML += createGame();
 
 // Stato iniziale
 // Prendo gli elementi con classe "item"
@@ -57,6 +51,8 @@ const items = document.querySelectorAll(".item");
 console.log(items);
 // Prendo gli elementi con classe "thumbnail"
 const thumbnails = document.querySelectorAll(".thumbnail");
+// Prendo gli elementi con classe "game"
+const games = document.querySelectorAll(".game");
 // Prendo i bottoni dello slider
 const nextButton = document.querySelector(".next");
 const previousButton = document.querySelector(".previous");
@@ -65,6 +61,8 @@ let activeItemIndex = 0;
 items[activeItemIndex].classList.add("active-item");
 // Thumbnail attiva (luminosa con bordo)
 thumbnails[activeItemIndex].classList.add("active-thumbnail");
+// Gioco attivo
+games[activeItemIndex].classList.add("active-game");
 // Aggiungo l'event listener ai bottoni
 // Bottone "precedente"
 previousButton.addEventListener("click", previousImage);
@@ -80,12 +78,12 @@ let myInterval = setInterval(nextImage, 3000);
 // Al click dell'utente sul bottone "successivo", blocco interval e lo avvio di nuovo
 nextButton.addEventListener("click", () => {
     clearInterval(myInterval);
-    // myInterval = setInterval(nextImage, 3000); set interval viene ripreso da mouseout()
+    myInterval = setInterval(nextImage, 3000);
 });
 // Al click dell'utente sul bottone "precedente", blocco interval e lo avvio di nuovo
 previousButton.addEventListener("click", () => {
     clearInterval(myInterval);
-    // myInterval = setInterval(nextImage, 3000); set interval viene ripreso da mouseout()
+    myInterval = setInterval(nextImage, 3000);
 });
 // Stoppare autoplay all'hover sullo slider e farlo ripartire al togliere dell'hover
 const mySlider = document.querySelector(".slider");
@@ -94,6 +92,35 @@ mySlider.addEventListener("mouseout", mouseOut);
 
 //////////////////////////
 // FUNCTIONS
+
+/**
+ * Description Aggiungo immagini allo slider
+ * @param {string} image
+ */
+function createImages(image) {
+    sliderItems.innerHTML += `
+    <div class="item">
+        <img src="${image}" alt="Game">
+    </div>`  
+    thumbnailItems.innerHTML += `
+    <div class="thumbnail">
+        <img src="${image}" alt="Game">
+    </div>`
+}
+
+// Aggiungo il titolo del gioco e la descrizione
+function createGame() {
+    let gameInfos = "";
+    for (let i = 0; i < sliderElements.length; i++ ) {
+        const curGame = sliderElements[i];
+        gameInfos += `
+        <div class="game">
+            <h2 class="game-title">${curGame.titolo}</h2>
+            <p class="game-description">${curGame.descrizione}</p>
+        </div>` 
+    }
+    return gameInfos;
+}
 
 /**
  * Description Passaggio alla immagine succesiva
@@ -108,22 +135,27 @@ function nextImage() {
         items[activeItemIndex].classList.remove("active-item");
         // Thumbnail
         thumbnails[activeItemIndex].classList.remove("active-thumbnail");
+        // Videogioco
+        games[activeItemIndex].classList.remove("active-game");
         activeItemIndex = 0;
         console.log(activeItemIndex);
         items[activeItemIndex].classList.add("active-item");
         thumbnails[activeItemIndex].classList.add("active-thumbnail");
+        games[activeItemIndex].classList.add("active-game");
     } else {
         // Quando clicco su questo bottone, tolgo active all'elemento corrente
         // Immagine
         items[activeItemIndex].classList.remove("active-item");
         // Thumbnail
         thumbnails[activeItemIndex].classList.remove("active-thumbnail");
+        // Videogioco
+        games[activeItemIndex].classList.remove("active-game");
         // Aumento l'indice
         activeItemIndex++;
-        console.log(activeItemIndex);
         // E assegno active all'elemento successivo
         items[activeItemIndex].classList.add("active-item");
         thumbnails[activeItemIndex].classList.add("active-thumbnail");
+        games[activeItemIndex].classList.add("active-game");
     }
 }
 
@@ -140,30 +172,36 @@ function previousImage() {
         items[activeItemIndex].classList.remove("active-item");
         // Thumbnail
         thumbnails[activeItemIndex].classList.remove("active-thumbnail");
+        // Videogioco
+        games[activeItemIndex].classList.remove("active-game");
         activeItemIndex = items.length - 1;
         console.log(activeItemIndex);
         items[activeItemIndex].classList.add("active-item");
         thumbnails[activeItemIndex].classList.add("active-thumbnail");
+        games[activeItemIndex].classList.add("active-game");
     } else {
         // Immagini
         // Quando clicco su questo bottone, tolgo active all'elemento corrente
         items[activeItemIndex].classList.remove("active-item");
         // Thumbnail
         thumbnails[activeItemIndex].classList.remove("active-thumbnail");
+        // Videogioco
+        games[activeItemIndex].classList.remove("active-game");
         // Diminusico l'indice
         activeItemIndex--;
         console.log(activeItemIndex);
         // E assegno active all'elemento successivo
         items[activeItemIndex].classList.add("active-item");
         thumbnails[activeItemIndex].classList.add("active-thumbnail");
+        games[activeItemIndex].classList.add("active-game");
     }
 }
 
 // Funzioni per bloccare l'autoplay all'hover sullo slider e per riprenderlo al togliere dell'hover
-function mouseOver() {
-    clearInterval(myInterval);
-}
+// function mouseOver() {
+//     clearInterval(myInterval);
+// }
 
-function mouseOut() {
-  myInterval = setInterval(nextImage, 3000);
-}
+// function mouseOut() {
+//   myInterval = setInterval(nextImage, 3000);
+// }
