@@ -1,3 +1,33 @@
+// Array di oggetti con: url dell'imagine, titolo, descrizione
+const sliderElements = [
+    {
+        immagine: "img/01.webp",
+        titolo: "Marvel's Spiderman Miles Morales",
+        descrizione: "Experience the rise of Miles Morales as the new hero masters incredible, explosive new powers to become his own Spider-Man."
+    },
+    {
+        immagine: "img/02.webp",
+        titolo: "Rachet & Clank: Rift Apart",
+        descrizione: "Blast your way through an interdimensional adventure."
+    },
+    {
+        immagine: "img/03.webp",
+        titolo: "Fortnite",
+        descrizione: "Drop into a modern gaming phenomenon."
+    },
+    {
+        immagine: "img/04.webp",
+        titolo: "Stray",
+        descrizione: "Lost, injured and alone, a stray cat must untangle an ancient mystery to escape a long-forgotten city."
+    },
+    {
+        immagine: "img/05.webp",
+        titolo: "Marvel's Avengers",
+        descrizione: "Live out your Super Hero dreams in an epic action-adventure"
+    },
+];
+
+
 // Inserisco tutte le immagini dinamicamente servendomi di un array con le immagini e un ciclo for che concatena un template literal.
 // Array con immagini
 const images = ["img/01.jpg", "img/02.jpg", "img/03.jpg", "img/04.jpg", "img/05.jpg"];
