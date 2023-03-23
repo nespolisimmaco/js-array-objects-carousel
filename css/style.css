@@ -118,3 +118,19 @@ body {
 .hidden {
     display: none;
 }
+
+/* Start, stop, and reverse autoplay buttons */
+.autoplay-buttons {
+    margin-left: 1rem;
+    flex-direction: column;
+    display: flex;
+}
+
+.start-button,
+.stop-button,
+.reverse-button {
+    background-color: transparent;
+    border: none;
+    margin-bottom: 1rem;
+    cursor: pointer;
+}

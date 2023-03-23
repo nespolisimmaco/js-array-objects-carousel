@@ -73,8 +73,6 @@ nextButton.addEventListener("click", nextImage);
 // ** DESCRIZIONE **
 // Aggiungere al carousel funzionalità di autoplay: dopo un certo periodo di tempo (3 secondi) l’immagine attiva dovrà cambiare alla successiva.
 
-// Ogni tre secondi passo all'imagine successiva
-let myInterval = setInterval(nextImage, 3000);
 // Al click dell'utente sul bottone "successivo", blocco interval e lo avvio di nuovo
 nextButton.addEventListener("click", () => {
     clearInterval(myInterval);
@@ -85,10 +83,20 @@ previousButton.addEventListener("click", () => {
     clearInterval(myInterval);
     myInterval = setInterval(nextImage, 3000);
 });
-// Stoppare autoplay all'hover sullo slider e farlo ripartire al togliere dell'hover
-const mySlider = document.querySelector(".slider");
-mySlider.addEventListener("mouseover", mouseOver);
-mySlider.addEventListener("mouseout", mouseOut);
+// Al click sulla thumbnail, questa diventa attiva
+// thumbnails.addEventListener("click", function () {
+//     clearInterval(myInterval);
+//     this.classList.add("active-thumbnail");
+// })
+
+// Ogni tre secondi passo all'imagine successiva (Autoplay)
+let myInterval = setInterval(nextImage, 3000);
+// Blocco l'autoplay al click su 'stop button' e lo riavvio al click su 'start button'
+document.querySelector(".start-button").addEventListener("click", startAutoplay);
+document.querySelector(".stop-button").addEventListener("click", stopAutoplay);
+// Inverto la direzione dell'autoplay
+let reverse = -1;
+document.querySelector(".reverse-button").addEventListener("click", reverseDirection);
 
 //////////////////////////
 // FUNCTIONS
@@ -197,11 +205,37 @@ function previousImage() {
     }
 }
 
-// Funzioni per bloccare l'autoplay all'hover sullo slider e per riprenderlo al togliere dell'hover
-// function mouseOver() {
-//     clearInterval(myInterval);
-// }
+// Funzioni per bloccare l'autoplay al click su 'stop button', per riprenderlo al click su 'start button', e per invertire la sua direzione
 
-// function mouseOut() {
-//   myInterval = setInterval(nextImage, 3000);
-// }
+/**
+ * Description start autoplay
+ */
+function startAutoplay() {
+    if(myInterval === -1) {
+        myInterval = setInterval(nextImage, 3000);
+        console.log(myInterval);
+    }
+}
+
+/**
+ * Description stop autoplay
+ */
+function stopAutoplay() {
+    clearInterval(myInterval);
+    myInterval = -1;
+}
+
+/**
+ * Description inverto direzione
+ */
+function reverseDirection() {
+    if (reverse === -1) {
+        reverse = 1;
+        clearInterval(myInterval);
+        myInterval = setInterval(previousImage, 3000);
+    } else {
+        reverse = -1;
+        clearInterval(myInterval); 
+        myInterval = setInterval(nextImage, 3000);
+    }  
+}
