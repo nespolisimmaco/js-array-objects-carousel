@@ -41,7 +41,8 @@ console.log(sliderItems);
 const thumbnailItems = document.querySelector(".images-list");
 // Ciclo for per inserire dinamicamente gli item (immagini)
 for (let i = 0; i < images.length; i++ ) {
-    createImages(images[i]);                     
+    createImages(images[i]);
+    thumbnailItems.append(createThumbnails(images[i], i));                 
 }
 sliderItems.innerHTML += createGame();
 
@@ -58,9 +59,10 @@ const nextButton = document.querySelector(".next");
 const previousButton = document.querySelector(".previous");
 // Indice dell'item Visibile
 let activeItemIndex = 0;
+let thumbnailIndex = activeItemIndex;
 items[activeItemIndex].classList.add("active-item");
 // Thumbnail attiva (luminosa con bordo)
-thumbnails[activeItemIndex].classList.add("active-thumbnail");
+thumbnails[thumbnailIndex].classList.add("active-thumbnail");
 // Gioco attivo
 games[activeItemIndex].classList.add("active-game");
 // Aggiungo l'event listener ai bottoni
@@ -83,11 +85,6 @@ previousButton.addEventListener("click", () => {
     clearInterval(myInterval);
     myInterval = setInterval(nextImage, 3000);
 });
-// Al click sulla thumbnail, questa diventa attiva
-// thumbnails.addEventListener("click", function () {
-//     clearInterval(myInterval);
-//     this.classList.add("active-thumbnail");
-// })
 
 // Ogni tre secondi passo all'imagine successiva (Autoplay)
 let myInterval = setInterval(nextImage, 3000);
@@ -98,22 +95,50 @@ document.querySelector(".stop-button").addEventListener("click", stopAutoplay);
 let reverse = -1;
 document.querySelector(".reverse-button").addEventListener("click", reverseDirection);
 
-//////////////////////////
+//////////////////////////////////////////
 // FUNCTIONS
 
 /**
  * Description Aggiungo immagini allo slider
  * @param {string} image
- */
+*/
 function createImages(image) {
     sliderItems.innerHTML += `
     <div class="item">
-        <img src="${image}" alt="Game">
+    <img src="${image}" alt="Game">
     </div>`  
-    thumbnailItems.innerHTML += `
-    <div class="thumbnail">
-        <img src="${image}" alt="Game">
-    </div>`
+}
+
+/**
+ * Description Creo l'elemento thumbnail da inserire nel DOM
+ * @param {string} image l'immagine della thumbnail
+ * @param {number} index l'indice della thumbnail
+ * @returns {object} l'elemento thumbnail
+ */
+function createThumbnails(image, index) {
+    let curIndex = index;
+    const thumbnail = document.createElement("div");
+    thumbnail.classList.add("thumbnail");
+    // Al click sulla thumbnail, questa diventa attiva, l'indice dell'elemento attivo (activeItemIndex) diventa l'indice dell'elemento cliccato, e da qui si riparte// 
+    thumbnail.addEventListener("click", function () {
+            clearInterval(myInterval);
+            // Immagine
+            items[activeItemIndex].classList.remove("active-item");
+            // Thumbnail
+            thumbnails[activeItemIndex].classList.remove("active-thumbnail");
+            // Videogioco
+            games[activeItemIndex].classList.remove("active-game");
+            activeItemIndex = index;
+            // Immagine
+            items[activeItemIndex].classList.add("active-item");
+            // Thumbnail
+            this.classList.add("active-thumbnail");
+            // Videogioco
+            games[activeItemIndex].classList.add("active-game");
+            myInterval = setInterval(nextImage, 3000);
+        })
+    thumbnail.innerHTML = `<img src="${image}" alt="Game">`
+    return thumbnail;
 }
 
 // Aggiungo il titolo del gioco e la descrizione

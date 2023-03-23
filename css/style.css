@@ -80,6 +80,7 @@ body {
     height: calc(60vh / 5);
     width: 100%;
     filter: brightness(50%);
+    cursor: pointer;
 }
 
 .active-thumbnail {
