@@ -10,6 +10,10 @@ img {
 }
 
 /* ********** GENERAL ********** */
+body {
+    font-family: 'Noto Sans', sans-serif;
+}
+
 .container {
     width: 60%;
     height: 100vh;
@@ -60,7 +64,7 @@ img {
 
 .active-thumbnail {
     filter: brightness(100%);
-    border: 2px solid white;
+    border: 2px solid lightgray;
 }
 
 /* Navigation buttons of the slider */

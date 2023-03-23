@@ -27,10 +27,14 @@ const sliderElements = [
     },
 ];
 
-
 // Inserisco tutte le immagini dinamicamente servendomi di un array con le immagini e un ciclo for che concatena un template literal.
 // Array con immagini
-const images = ["img/01.jpg", "img/02.jpg", "img/03.jpg", "img/04.jpg", "img/05.jpg"];
+const images = [];
+for (let i = 0; i < sliderElements.length; i++) {
+    const game = sliderElements[i];
+    images.push(game.immagine);
+}
+console.log(images);
 // Contenitore delle immagini dello slider
 const sliderItems = document.querySelector(".slider-items");
 console.log(sliderItems);
@@ -39,11 +43,11 @@ const thumbnailItems = document.querySelector(".images-list");
 for (let i = 0; i < images.length; i++ ) {
     sliderItems.innerHTML += `
     <div class="item">
-        <img src="${images[i]}" alt="Landscape">
+        <img src="${images[i]}" alt="Game">
     </div>`  
     thumbnailItems.innerHTML += `
     <div class="thumbnail">
-        <img src="${images[i]}" alt="Landscape">
+        <img src="${images[i]}" alt="Game">
     </div>`                           
 }
 
